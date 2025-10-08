@@ -8,28 +8,31 @@ const renderer = new WebGLRenderer({antialias: true});
 renderer.setSize(container.clientWidth, container.clientHeight);
 container.appendChild(renderer.domElement);
 
-
 const scene = new Scene();
-
-
-const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
 camera.position.set(0, 0, 0.1);
-
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
-controls.enablePan = false;
+controls.enablePan = true;
+controls.keyPanSpeed = 50.0;
 controls.rotateSpeed = -0.3;
+
+// Enable Zoom
+controls.enableZoom = true;
+controls.zoomSpeed = 10;
+controls.minDistance = 1;
+controls.maxDistance = 40;
 
 
 // Load your panorama image here (relative to /public folder in Vite)
-const texture = new TextureLoader().load('/DSC_3609.JPG', () => {
+const texture = new TextureLoader().load('/360NGOAITHAT.jpg', () => {
   console.log('Panorama loaded');
 });
 
 texture.colorSpace = SRGBColorSpace;
 
-const geometry = new THREE.CylinderGeometry(50, 50, 30, 64, 1, true);
+const geometry = new THREE.SphereGeometry(50, 64, 48);
 geometry.scale(-1, 1, 1); // invert normals to view from inside
 
 const material = new THREE.MeshBasicMaterial({map: texture});
