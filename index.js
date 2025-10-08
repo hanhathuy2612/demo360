@@ -23,13 +23,13 @@ controls.rotateSpeed = -0.3;
 
 
 // Load your panorama image here (relative to /public folder in Vite)
-const texture = new TextureLoader().load('/360NGOAITHAT.jpg', () => {
+const texture = new TextureLoader().load('/DSC_3609.JPG', () => {
   console.log('Panorama loaded');
 });
 
 texture.colorSpace = SRGBColorSpace;
 
-const geometry = new THREE.SphereGeometry(50, 64, 48);
+const geometry = new THREE.CylinderGeometry(50, 50, 30, 64, 1, true);
 geometry.scale(-1, 1, 1); // invert normals to view from inside
 
 const material = new THREE.MeshBasicMaterial({map: texture});
